@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import connectDb from './config/db.js';
 import { createClient } from 'redis';
 import { connectRabbitMQ } from './config/rabbitmq.js';
-
+import cors from 'cors';
 dotenv.config();
 
 connectDb();
@@ -20,6 +20,9 @@ redisClient
   .catch(console.error);
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 const port = process.env.PORT;
 

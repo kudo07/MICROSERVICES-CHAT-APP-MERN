@@ -1,6 +1,5 @@
-import ampq, { connect } from 'amqplib';
+import ampq from 'amqplib';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 
 export const startSendOtpConsumer = async () => {
   try {
