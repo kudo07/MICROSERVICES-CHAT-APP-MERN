@@ -1,19 +1,24 @@
-import ampq from 'amqplib';
+import amqp from 'amqplib';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const startSendOtpConsumer = async () => {
   try {
-    const connection = await ampq.connect({
+    const connection = await amqp.connect({
       protocol: 'amqp',
       hostname: process.env.Rabbitmq_Host,
       port: 5672,
-      username: process.env.Rabiitmq_Username,
+      username: process.env.Rabbitmq_Username,
       password: process.env.Rabbitmq_Password,
     });
+
     const channel = await connection.createChannel();
+
     const queueName = 'send-otp';
 
     await channel.assertQueue(queueName, { durable: true });
+
     console.log('✅ Mail Service consumer started, listening for otp emails');
 
     channel.consume(queueName, async (msg) => {
@@ -29,8 +34,9 @@ export const startSendOtpConsumer = async () => {
               pass: process.env.PASSWORD,
             },
           });
+
           await transporter.sendMail({
-            from: 'CHAT APP',
+            from: 'Chat app',
             to,
             subject,
             text: body,
