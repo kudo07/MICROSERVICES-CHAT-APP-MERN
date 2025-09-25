@@ -1,11 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 export interface IUser extends Document {
-  name: string;
-  email: string;
+  _id: Types.ObjectId;
+  name: String;
+  email: String;
 }
 
-const schema: Schema<IUser> = new Schema(
+const schema = new Schema(
   {
+    _id: {
+      type: Types.ObjectId,
+      auto: true,
+    },
     name: {
       type: String,
       required: true,

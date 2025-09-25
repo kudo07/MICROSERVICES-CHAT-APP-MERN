@@ -2,6 +2,7 @@ import type { NextFunction, Response, Request } from 'express';
 import type { IUser } from '../model/User.js';
 import jwt from 'jsonwebtoken';
 import type { JwtPayload } from 'jsonwebtoken';
+import type { Types } from 'mongoose';
 
 export interface AuthenticatedRequest extends Request {
   user?: IUser | null;
